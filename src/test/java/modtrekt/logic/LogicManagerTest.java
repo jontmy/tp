@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import modtrekt.commons.core.Messages;
 import modtrekt.logic.commands.CommandResult;
 import modtrekt.logic.commands.exceptions.CommandException;
 import modtrekt.logic.parser.exceptions.ParseException;
@@ -47,12 +46,6 @@ public class LogicManagerTest {
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
         assertParseException(invalidCommand, "Expected a command, got uicfhmowqewca");
-    }
-
-    @Test
-    public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "remove -t 9";
-        assertCommandException(deleteCommand, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
     //    @Test

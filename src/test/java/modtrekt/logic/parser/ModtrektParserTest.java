@@ -1,7 +1,6 @@
 package modtrekt.logic.parser;
 
 import static modtrekt.testutil.Assert.assertThrows;
-import static modtrekt.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -11,7 +10,6 @@ import modtrekt.commons.core.Messages;
 import modtrekt.logic.commands.AddTaskCommand;
 import modtrekt.logic.commands.ExitCommand;
 import modtrekt.logic.commands.HelpCommand;
-import modtrekt.logic.commands.RemoveTaskCommand;
 import modtrekt.logic.parser.exceptions.ParseException;
 import modtrekt.model.task.Task;
 import modtrekt.testutil.TaskBuilder;
@@ -26,13 +24,6 @@ public class ModtrektParserTest {
         Task t = new TaskBuilder().build();
         AddTaskCommand command = (AddTaskCommand) parser.parseCommand(TaskUtil.getAddCommand(t));
         assertEquals(new AddTaskCommand(t), command);
-    }
-
-    @Test
-    public void parseCommand_delete() throws Exception {
-        RemoveTaskCommand command = (RemoveTaskCommand) parser.parseCommand(
-                RemoveTaskCommand.COMMAND_PHRASE + " -t " + INDEX_FIRST_TASK.getOneBased());
-        assertEquals(new RemoveTaskCommand(INDEX_FIRST_TASK), command);
     }
 
     @Test
