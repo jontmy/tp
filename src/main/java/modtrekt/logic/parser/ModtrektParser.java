@@ -23,7 +23,8 @@ import modtrekt.logic.commands.EditModuleCommand;
 import modtrekt.logic.commands.EditTaskCommand;
 import modtrekt.logic.commands.ExitCommand;
 import modtrekt.logic.commands.HelpCommand;
-import modtrekt.logic.commands.RemoveCommand;
+import modtrekt.logic.commands.RemoveModuleCommand;
+import modtrekt.logic.commands.RemoveTaskCommand;
 import modtrekt.logic.commands.UndoneModuleCommand;
 import modtrekt.logic.commands.tasks.ArchiveTaskCommand;
 import modtrekt.logic.commands.tasks.ListTasksCommand;
@@ -54,6 +55,10 @@ public class ModtrektParser {
         // devs: Instantiate your commands here by passing it to addCommand() -
         //       you don't need any CommandParser classes anymore.
         JCommander jcommander = JCommander.newBuilder().programName("")
+                .addCommand(RemoveModuleCommand.COMMAND_PHRASE, new RemoveModuleCommand(),
+                         RemoveModuleCommand.COMMAND_ALIASES)
+                .addCommand(RemoveTaskCommand.COMMAND_PHRASE, new RemoveTaskCommand(),
+                         RemoveTaskCommand.COMMAND_ALIASES)
                 .addCommand(ListTasksCommand.COMMAND_WORD, new ListTasksCommand())
                 .addCommand(ArchiveTaskCommand.COMMAND_WORD, new ArchiveTaskCommand())
                 .addCommand(UnarchiveTaskCommand.COMMAND_WORD, new UnarchiveTaskCommand())
@@ -121,7 +126,9 @@ public class ModtrektParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        case RemoveCommand.COMMAND_WORD:
+        case RemoveModuleCommand.COMMAND_PHRASE:
+            return new RemoveCommandParser().parse(arguments);
+        case RemoveTaskCommand.COMMAND_PHRASE:
             return new RemoveCommandParser().parse(arguments);
         case AddCommand.COMMAND_WORD:
             if (arguments.contains(AddCommand.COMMAND_IDENTIFIER)) {
