@@ -15,13 +15,13 @@ import modtrekt.model.task.Task;
  * Deletes a task identified using it's displayed index from the task book.
  */
 public class RemoveTaskCommand extends Command {
+    public static final String COMMAND_PHRASE = "remove task";
+    public static final String[] COMMAND_ALIASES = new String[]{"rm task"};
 
-    public static final String COMMAND_WORD = "remove";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_PHRASE
             + ": Deletes the task/module identified by the index number.\n"
             + "Prefixes: " + CliSyntax.PREFIX_MODULE + ": Modules, " + CliSyntax.PREFIX_TASK + ": Tasks\n"
-            + "Format: " + COMMAND_WORD + " " + CliSyntax.PREFIX_MODULE + " <INDEX>";
+            + "Format: " + COMMAND_PHRASE + " " + CliSyntax.PREFIX_MODULE + " <INDEX>";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Removed Task: %1$s";
 
@@ -29,6 +29,12 @@ public class RemoveTaskCommand extends Command {
 
     public RemoveTaskCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
+    }
+    /**
+     * Returns a new RemoveTaskCommand object, with no fields initialized, for use with JCommander.
+     */
+    public RemoveTaskCommand() {
+        this.targetIndex = null;
     }
 
     @Override
